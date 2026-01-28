@@ -25,6 +25,11 @@ Widget build(BuildContext context) {
 }
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  
+  void getNext () {
+    current = WordPair.random();
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -41,7 +46,8 @@ class MyHomePage extends StatelessWidget {
           
           ElevatedButton(
             onPressed: () {
-              print('button pressed!');
+              //print('button pressed!'); // call that function here
+              appState.getNext();
             },
             child: Text('Next'),
           ),
