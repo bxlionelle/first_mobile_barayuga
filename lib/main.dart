@@ -30,29 +30,57 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
 }
 
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    //added this variable
+    var pair = appState.current;
+
 
     return Scaffold(
       body: Column(
         children: [
 
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.blueAccent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            
+            
+            child: Text('Word Pair')),
+          //bigcard(), //refractred this line , right click and extract it to widget, rename it, MALI
+          Text(pair.asLowerCase), //changed
+           //- Wrap this in container
+
+          //removed the appState.current
+          //Text(appState.current.asLowerCase),
           
           ElevatedButton(
             onPressed: () {
               //print('button pressed!'); // call that function here
-              appState.getNext();
+              appState.getNext(); // instead of printing it, call getNext()
             },
             child: Text('Next'),
           ),
         ],
       ),
     );
+  }
+}
+
+class bigcard extends StatelessWidget {
+  const bigcard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Word Pair');
   }
 }
