@@ -36,7 +36,7 @@ class MyAppState extends ChangeNotifier {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+    var appState = context.watch<MyAppState>(); 
     //added this variable
     var pair = appState.current;
 
@@ -45,26 +45,13 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: [
 
-          Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.blueAccent,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            
-            
-            child: Text('Word Pair')),
-          //bigcard(), //refractred this line , right click and extract it to widget, rename it, MALI
-          Text(pair.asLowerCase), //changed
-           //- Wrap this in container
-
-          //removed the appState.current
-          //Text(appState.current.asLowerCase),
+          Text('Word Pair'),
+          BigCard(pair: pair), //changed this line
           
           ElevatedButton(
             onPressed: () {
               //print('button pressed!'); // call that function here
-              appState.getNext(); // instead of printing it, call getNext()
+              appState.getNext();
             },
             child: Text('Next'),
           ),
@@ -74,13 +61,21 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class bigcard extends StatelessWidget {
-  const bigcard({
+class BigCard extends StatelessWidget {
+  const BigCard({
     super.key,
+    required this.pair,
   });
+
+  final WordPair pair;
 
   @override
   Widget build(BuildContext context) {
-    return Text('Word Pair');
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(pair.asLowerCase),
+      ),
+    );
   }
 }
