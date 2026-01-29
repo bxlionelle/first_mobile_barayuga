@@ -13,6 +13,7 @@ Widget build(BuildContext context) {
   return ChangeNotifierProvider(
     create: (context) => MyAppState(),
     child: MaterialApp(
+      debugShowCheckedModeBanner: false, // eraser the debug banner 
       title: 'Namer App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 17, 6, 237)), //wanna change the color? here
