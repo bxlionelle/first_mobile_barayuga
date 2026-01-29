@@ -31,6 +31,16 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+    var favorite = <WordPair>[]; //into array, what ever hihimoon ni method ig suld ha list
+
+    void toggleFavorite() {
+      if (favorite.contains(current)){
+        favorite.remove(current);
+      } else {
+        favorite.add(current);
+      }
+      notifyListeners();
+    }
 
 }
 
@@ -38,8 +48,16 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>(); 
-    //added this variable
     var pair = appState.current;
+
+    IconData icon; // this is the library, a default icon
+    if (appState.favorite.contains(pair)) {
+      icon = Icons.favorite;
+      
+    }else{
+      icon = Icons.favorite_border;
+    }
+    
 
 
     return Scaffold(
@@ -53,7 +71,15 @@ class MyHomePage extends StatelessWidget {
             Text('Word Pair'),
 
             BigCard(pair: pair), //changed this line
-            
+
+            ElevatedButton.icon(
+              onPressed: () {
+                appState.toggleFavorite();
+              },
+              icon: Icon(icon),
+              label: Text ('Like'),
+            ),
+
             ElevatedButton(
               onPressed: () {
                 //print('button pressed!'); // call that function here
