@@ -15,7 +15,7 @@ Widget build(BuildContext context) {
     child: MaterialApp(
       title: 'Namer App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 17, 6, 237)), //wanna change the color? here
       ),
       home: MyHomePage(),
     ),
@@ -42,20 +42,26 @@ class MyHomePage extends StatelessWidget {
 
 
     return Scaffold(
-      body: Column(
-        children: [
+      body: Center(
+        child: Column(
+          // add a function here to make it in the center
+          mainAxisAlignment: MainAxisAlignment.center,
 
-          Text('Word Pair'),
-          BigCard(pair: pair), //changed this line
-          
-          ElevatedButton(
-            onPressed: () {
-              //print('button pressed!'); // call that function here
-              appState.getNext();
-            },
-            child: Text('Next'),
-          ),
-        ],
+          children: [
+        
+            Text('Word Pair'),
+
+            BigCard(pair: pair), //changed this line
+            
+            ElevatedButton(
+              onPressed: () {
+                //print('button pressed!'); // call that function here
+                appState.getNext();
+              },
+              child: Text('Next'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -71,10 +77,24 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // add the variable theme here
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary,
+    );
+
     return Card(
+      color : theme.colorScheme.primary,
+      
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(pair.asLowerCase),
+        //change teh padding size
+        padding: const EdgeInsets.all(10),
+        // add the child text here
+        child: Text (
+          pair.asLowerCase,
+          style:style,
+          semanticsLabel:"${pair.first} ${pair.second}",
+        ),
       ),
     );
   }
